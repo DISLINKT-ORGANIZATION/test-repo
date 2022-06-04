@@ -18,6 +18,7 @@ jobs:
     steps:
       - name: not_develop
         if: ${{ env.DEVELOP_BRANCH != env.BASE_BRANCH }}
+        run: echo ${{env.BASE_BRANCH}}
         run: exit 1
       - name: develop
         if: ${{ env.DEVELOP_BRANCH == env.BASE_BRANCH }}
