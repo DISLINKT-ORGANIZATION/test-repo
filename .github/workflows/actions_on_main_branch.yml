@@ -1,4 +1,4 @@
-name: actions_on_main_branch
+name: Actions on main branch
 on: 
   pull_request_target:
     types:
@@ -9,8 +9,8 @@ on:
       - 'main'
 
 jobs:
-  job1:
-    name: check_branch_pr
+  checks:
+    name: Check PR
     runs-on: ubuntu-latest
     env:
       BASE_BRANCH: ${{github.base_ref}}
