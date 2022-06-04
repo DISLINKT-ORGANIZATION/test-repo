@@ -13,7 +13,7 @@ jobs:
     name: Check PR
     runs-on: ubuntu-latest
     env:
-      PR_BRANCH: ${{github.payload.pull_request.head.ref}}
+      PR_BRANCH: ${{github.event.pull_request.head.ref}}
       DEVELOP_BRANCH: develop
     steps:
       - name: not_develop
