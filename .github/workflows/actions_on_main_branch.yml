@@ -1,4 +1,4 @@
-name: actions_on_main_branch
+name: Actions on main branch
 on: 
   pull_request_target:
     types:
@@ -9,15 +9,15 @@ on:
       - 'main'
 
 jobs:
-  name: check_branch_pr
-  runs-on: ubuntu-latest
-  env:
-    BASE_BRANCH: ${{github.base_ref}}
-    DEVELOP_BRANCH: develop
-  steps:
-    - name: not_develop
-      if: ${{ env.DEVELOP_BRANCH != env.BASE_BRANCH }}
-      run: exit 1
-    - name: develop
-      if: ${{ env.DEVELOP_BRANCH == env.BASE_BRANCH }}
-      run: echo "ok"
+  checks:
+    name: Check PR
+    runs-on: ubuntu-latest
+    env:
+      BASE_BRANCH: ${{github.base_ref}}
+    steps:
+      - name: not_develop
+        if: ${{ "develop" != env.BASE_BRANCH }}
+        run: exit 1
+      - name: develop
+        if: ${{ "develop" == env.BASE_BRANCH }}
+        run: echo "ok"
