@@ -1,2 +1,2 @@
-# test-repo1
+# test-repo
 # hello repo hello
