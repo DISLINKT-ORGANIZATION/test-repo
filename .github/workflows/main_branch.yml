@@ -13,13 +13,13 @@ jobs:
     name: Check PR
     runs-on: ubuntu-latest
     env:
-      BASE_BRANCH: ${{github.base_ref}}
+      PR_BRANCH: ${{github.payload.pull_request.head.ref}}
       DEVELOP_BRANCH: develop
     steps:
       - name: not_develop
-        if: ${{ env.DEVELOP_BRANCH != env.BASE_BRANCH }}
-        run: echo ${{env.BASE_BRANCH}}
+        if: ${{ env.DEVELOP_BRANCH != env.PR_BRANCH }}
+        run: echo ${{env.PR_BRANCH}}
         # run: exit 1
       - name: develop
-        if: ${{ env.DEVELOP_BRANCH == env.BASE_BRANCH }}
+        if: ${{ env.DEVELOP_BRANCH == env.PR_BRANCH }}
         run: echo "ok"
