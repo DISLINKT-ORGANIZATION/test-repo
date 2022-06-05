@@ -1,8 +1,6 @@
 #Workflow name
 name: CI/CD Pipeline
 on:
-  #Manually trigger workflow runs
-  workflow_dispatch:
   pull_request_target:
     types:
       - opened
