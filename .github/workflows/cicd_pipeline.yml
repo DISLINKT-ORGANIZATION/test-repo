@@ -1,6 +1,10 @@
 #Workflow name
 name: CI/CD Pipeline
 on:
+  push:
+    branches:
+      - 'main'
+      - 'develop'
   pull_request_target:
     types:
       - opened
