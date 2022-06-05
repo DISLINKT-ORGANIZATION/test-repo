@@ -12,6 +12,7 @@ on:
       - 'main'
       - 'develop'
 
+
 jobs:
   #Test's job
   tests:
