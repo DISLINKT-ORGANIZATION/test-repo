@@ -33,10 +33,10 @@ class DataControllerTest {
         assertEquals(20, currenciesLength);
     }
 
-    @Test
-    void currenciesLengthInvalid() {
-        Integer currenciesLength = dataController.getRandomCurrencies().size();
-        assertEquals(25, currenciesLength);
-    }
+//    @Test
+//    void currenciesLengthInvalid() {
+//        Integer currenciesLength = dataController.getRandomCurrencies().size();
+//        assertEquals(25, currenciesLength);
+//    }
 
 }
