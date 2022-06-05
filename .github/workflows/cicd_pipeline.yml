@@ -9,6 +9,7 @@ on:
       - 'main'
       - 'develop'
 
+
 jobs:
   tests:
     name: Unit tests
