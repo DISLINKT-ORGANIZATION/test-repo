@@ -3,11 +3,15 @@ name: CI/CD Pipeline
 on:
   #Manually trigger workflow runs
   workflow_dispatch:
-  #Trigger the workflow on push from the main branch
-  push:
+  pull_request_target:
     branches:
       - main
       - develop
+    types:
+      - opened
+      - synchronize
+      - reopened
+
 jobs:
   #Test's job
   tests:
