@@ -1,12 +1,27 @@
 #Workflow name
 name: CI/CD Pipeline
 on:
+<<<<<<< Updated upstream
   #Manually trigger workflow runs
   workflow_dispatch:
   push:
     branches:
       - main
       - develop
+=======
+#  push:
+#    branches:
+#      - 'main'
+#      - 'develop'
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    branches:
+      - 'main'
+      - 'develop'
+>>>>>>> Stashed changes
 
 jobs:
   #Test's job
