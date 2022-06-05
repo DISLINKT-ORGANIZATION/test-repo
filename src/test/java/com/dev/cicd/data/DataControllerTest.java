@@ -38,5 +38,4 @@ class DataControllerTest {
         Integer currenciesLength = dataController.getRandomCurrencies().size();
         assertEquals(25, currenciesLength);
     }
-
 }
