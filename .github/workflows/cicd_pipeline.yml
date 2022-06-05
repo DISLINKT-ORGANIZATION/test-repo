@@ -1,10 +1,5 @@
-#Workflow name
 name: CI/CD Pipeline
 on:
-  push:
-    branches:
-      - 'main'
-      - 'develop'
   pull_request_target:
     types:
       - opened
@@ -14,8 +9,8 @@ on:
       - 'main'
       - 'develop'
 
+
 jobs:
-  #Test's job
   tests:
     name: Unit tests
     #Run on Ubuntu using the latest version
