@@ -2,9 +2,9 @@ name: CI Pipeline
 
 on:
   pull_request:
-    branches: [dev, main]
+    branches: [dev, master]
   push:
-    branches: [dev, main]
+    branches: [dev, master]
 
 jobs:
   ci:
@@ -35,7 +35,7 @@ jobs:
 #      - name: Specify next version
 #      - name: Upload artifact
       - name: Release
-        uses: qcastel/github-actions-maven-release@main
+        uses: qcastel/github-actions-maven-release@master
         with:
           git-release-bot-name: "bot-idhub"
           git-release-bot-email: "bot@idhub.io"
