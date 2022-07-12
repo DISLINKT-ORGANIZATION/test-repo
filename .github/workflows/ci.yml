@@ -41,23 +41,36 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Changelog
-        id: github_release
-        uses: mikepenz/release-changelog-builder-action@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Build Changelog
+#        id: github_release
+#        uses: mikepenz/release-changelog-builder-action@v3
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create a GitHub release
-        uses: ncipollo/release-action@v1.9.0
+#      - name: Create a GitHub release
+#        uses: ncipollo/release-action@v1.9.0
+#        with:
+#          tag: ${{ steps.tag_version.outputs.new_tag }}
+#          name: Release ${{ steps.tag_version.outputs.new_tag }}
+#          body:
+#            ${{ steps.github_release.outputs.changelog }}
+#            ${{ steps.tag_version.outputs.changelog }}
+
+      - name: Create a Github release
+        id: release
+        uses: rymndhng/release-on-push-action@master
         with:
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body:
-            ${{ steps.github_release.outputs.changelog }}
-            ${{ steps.tag_version.outputs.changelog }}
+          bump_version_scheme: minor
+          tag_prefix: v
+          release_name: "Release <RELEASE_VERSION>"
 
-      - name: Print tag
-        run: echo ${{ steps.tag_version.outputs.new_tag }} ${{ steps.tag_version.outputs }} ${{ steps.tag_version }}
+      - name: Check Output Parameters
+        run: |
+          echo "Got tag name ${{ steps.release.outputs.tag_name }}"
+          echo "Got release version ${{ steps.release.outputs.version }}"
+
+#      - name: Print tag
+#        run: echo ${{ steps.tag_version.outputs.new_tag }} ${{ steps.tag_version.outputs }} ${{ steps.tag_version }}
 
 #
 ##      - name: Specify next version
