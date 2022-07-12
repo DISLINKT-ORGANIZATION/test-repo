@@ -69,8 +69,15 @@ jobs:
           tag_prefix: v
           release_name: "Release <RELEASE_VERSION>"
 
-      - name: Print tag
-        run: echo ${{steps.release.outputs.version}}
+      - name: Get release version
+        id: split
+        uses: rishabhgupta/split-by@v1
+        with:
+          string: ${{steps.release.outputs.version}}
+          split-by: ' '
+
+      - name: Print version
+        run: echo ${{steps.split.outputs._1}}
 
 #      - name: Upload binaries to release
 #        uses: svenstaro/upload-release-action@v2
@@ -79,6 +86,14 @@ jobs:
 #          file: target/data*
 #          asset_name: ${{ matrix.asset_name }}
 #          tag: ${{ github.ref }}
+
+
+#      - name: Upload build
+#        if: github.event_name == 'push'
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: build-${{ steps.version.outputs.VERSION }}
+#          path: dist/*.tar.gz
 
 
 
