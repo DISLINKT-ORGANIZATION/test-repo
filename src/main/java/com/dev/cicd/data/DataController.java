@@ -30,6 +30,11 @@ public class DataController {
         return "Change release";
     }
 
+    @GetMapping("/release1")
+    public String release1() {
+        return "Change release1";
+    }
+
     @GetMapping("/nations")
     public JsonNode getRandomNations() {
         var objectMapper = new ObjectMapper();
