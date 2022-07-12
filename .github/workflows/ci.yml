@@ -21,9 +21,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '11'
-        env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-          run: echo ::set-env name=JDK_11::$(echo $JAVA_HOME)
 
       - name: Cache Maven packages
         uses: actions/cache@v1
@@ -42,6 +39,8 @@ jobs:
 #      - name: Upload artifact
       - name: Release
         uses: qcastel/github-actions-maven-release@master
+        env:
+          JAVA_HOME: /usr/lib/jvm/java-11-openjdk/
         with:
           release-branch-name: "main"
 #          git-release-bot-name: "bot-idhub"
