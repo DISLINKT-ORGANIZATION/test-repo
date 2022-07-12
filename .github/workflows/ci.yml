@@ -29,48 +29,49 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Run tests
-        run: mvn -B test
+#      - name: Run tests
+#        run: mvn -B test
 
       - name: Build with Maven
         run: mvn -B package -DskipTests --file pom.xml
 
-      - name: Bump version and push tag
-        id: tag_version
-        uses: mathieudutour/github-tag-action@v5
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Bump version and push tag
+#        id: tag_version
+#        uses: mathieudutour/github-tag-action@v5
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
 
 #      - name: Build Changelog
 #        id: github_release
 #        uses: mikepenz/release-changelog-builder-action@v3
 #        env:
 #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Create a GitHub release
+#          uses: ncipollo/release-action@v1.9.0
+#          with:
+#            tag: ${{ steps.tag_version.outputs.new_tag }}
+#            name: Release ${{ steps.tag_version.outputs.new_tag }}
+#            body:
+#              ${{ steps.github_release.outputs.changelog }}
+#              ${{ steps.tag_version.outputs.changelog }}
 
-      - name: Create a GitHub release
-        uses: ncipollo/release-action@v1.9.0
-        with:
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body:
-            ${{ steps.github_release.outputs.changelog }}
-            ${{ steps.tag_version.outputs.changelog }}
-
-#      - name: Create a Github release
-#        id: release
-#        uses: rymndhng/release-on-push-action@master
-#        with:
-#          bump_version_scheme: minor
-#          tag_prefix: v
-#          release_name: "Release <RELEASE_VERSION>"
 #
-#      - name: Check Output Parameters
-#        run: |
-#          echo "Got tag name ${{ steps.release.outputs.tag_name }}"
-#          echo "Got release version ${{ steps.release.outputs.version }}"
+#      - name: Print tag
+#        run: echo ${{ steps.tag_version.outputs.new_tag }} ${{ steps.tag_version.outputs }} ${{ steps.tag_version }}
+###################
+      - name: Create a Github release
+        id: release
+        uses: rymndhng/release-on-push-action@master
+        with:
+          bump_version_scheme: minor
+          tag_prefix: v
+          release_name: "Release <RELEASE_VERSION>"
 
-      - name: Print tag
-        run: echo ${{ steps.tag_version.outputs.new_tag }} ${{ steps.tag_version.outputs }} ${{ steps.tag_version }}
+
+      - name: Check Output Parameters
+        run: |
+          echo "Got tag name ${{ steps.release.outputs.tag_name }}"
+          echo "Got release version ${{ steps.release.outputs.version }}"
 
 #
 ##      - name: Specify next version
