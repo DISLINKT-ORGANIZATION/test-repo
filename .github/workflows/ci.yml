@@ -62,8 +62,9 @@ jobs:
       - name: Create a Github release
         id: release
         uses: rymndhng/release-on-push-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           bump_version_scheme: minor
           tag_prefix: v
           release_name: "Release <RELEASE_VERSION>"
