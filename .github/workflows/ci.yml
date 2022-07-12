@@ -70,7 +70,7 @@ jobs:
           release_name: "Release <RELEASE_VERSION>"
 
       - name: Print tag
-        run: echo ${{steps.release.outputs.new_tag}}
+        run: echo ${{steps.release.outputs.version}}
 
 #      - name: Upload binaries to release
 #        uses: svenstaro/upload-release-action@v2
