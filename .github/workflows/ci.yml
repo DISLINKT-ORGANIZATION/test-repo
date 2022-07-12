@@ -69,15 +69,19 @@ jobs:
           tag_prefix: v
           release_name: "Release <RELEASE_VERSION>"
 
+      - name: Print version
+        run: echo "Test- ${{steps.release.outputs.version}}"
+
       - name: Get release version
         id: split
         uses: rishabhgupta/split-by@v1
         with:
           string: ${{steps.release.outputs.version}}
-          split-by: ' '
+          split-by: " "
 
-      - name: Print version
+      - name: Print splitted version
         run: echo ${{steps.split.outputs._1}}
+
 
 #      - name: Upload binaries to release
 #        uses: svenstaro/upload-release-action@v2
