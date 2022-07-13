@@ -20,21 +20,6 @@ public class DataController {
         return "The actual version is 1.0.0";
     }
 
-    @GetMapping("/change")
-    public String change() {
-        return "Some change";
-    }
-
-    @GetMapping("/release")
-    public String release() {
-        return "Change release";
-    }
-
-//    @GetMapping("/release1")
-//    public String release1() {
-//        return "Change release1";
-//    }
-
     @GetMapping("/nations")
     public JsonNode getRandomNations() {
         var objectMapper = new ObjectMapper();
