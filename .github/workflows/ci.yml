@@ -72,12 +72,11 @@ jobs:
       - name: Print version
         run: echo "Test- ${{steps.release.outputs.version}}"
 
-      - name: Get release version
+      - name: Split version
         id: split
-        uses: rishabhgupta/split-by@v1
+        uses: jungwinter/split@v2
         with:
-          string: ${{steps.release.outputs.version}}
-          split-by: " "
+          msg: ${{steps.release.outputs.version}}
 
       - name: Print splitted version
         run: echo ${{steps.split.outputs._1}}
