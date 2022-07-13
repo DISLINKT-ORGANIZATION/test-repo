@@ -69,17 +69,11 @@ jobs:
           tag_prefix: v
           release_name: "Release <RELEASE_VERSION>"
 
-      - name: Print version
-        run: echo "Test- ${{steps.release.outputs.version}}"
-
       - name: Split version
         id: split
         uses: jungwinter/split@v2
         with:
           msg: ${{steps.release.outputs.version}}
-
-      - name: Print splitted version
-        run: echo ${{steps.split.outputs._1}}
 
 
 #      - name: Upload binaries to release
@@ -91,14 +85,12 @@ jobs:
 #          tag: ${{ github.ref }}
 
 
-#      - name: Upload build
-#        if: github.event_name == 'push'
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: build-${{ steps.version.outputs.VERSION }}
-#          path: dist/*.tar.gz
-
-
+      - name: Upload build
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-${{ steps.split.outputs._1 }}
+          path: dist/*.tar.gz
 
 #
 ##      - name: Specify next version
