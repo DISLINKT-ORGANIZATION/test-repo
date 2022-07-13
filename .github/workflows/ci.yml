@@ -76,7 +76,7 @@ jobs:
           msg: ${{steps.release.outputs.version}}
 
       - name: Print github ref
-        run: echo {{ github.ref }}
+        run: echo ${{ github.ref }}
 
 
       - name: Upload binaries to release
