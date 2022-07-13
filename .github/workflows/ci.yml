@@ -74,6 +74,8 @@ jobs:
         with:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ secrets.DOCKER_USERNAME }}/test:${{ steps.versioning.outputs.version }}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/test:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/test:buildcache,mode=max
 
       - name: Upload Docker Image As Artifact
         if: ${{ github.event_name != 'pull_request' }}
