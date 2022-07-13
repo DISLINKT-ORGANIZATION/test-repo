@@ -90,7 +90,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-${{ steps.split.outputs._1 }}
-          path: dist/*.tar.gz
+          path: target/*.jar
 
 #
 ##      - name: Specify next version
