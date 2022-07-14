@@ -1,0 +1,52 @@
+- name: Split version
+  id: split
+  uses: jungwinter/split@v2
+  with:
+    msg: ${{steps.release.outputs.version}}
+
+#############################################
+      - name: Upload build
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-${{ steps.split.outputs._1 }}
+          path: target/*.jar
+
+
+#      - name: Specify next version
+#      - name: Upload artifact
+      - name: Release
+        uses: qcastel/github-actions-maven-release@master
+        env:
+          JAVA_HOME: /usr/lib/jvm/java-11-openjdk/
+        with:
+          release-branch-name: "main"
+#          git-release-bot-name: "bot-idhub"
+#          git-release-bot-email: "bot@idhub.io"
+          maven-args: "-Dmaven.javadoc.skip=true -DskipTests -DskipITs -Ddockerfile.skip -DdockerCompose.skip -Dmaven.deploy.skip=true"
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+################################################
+
+- name: Bump version and push tag
+  id: tag_version
+  uses: mathieudutour/github-tag-action@v5
+  with:
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+
+- name: Build Changelog
+  id: github_release
+  uses: mikepenz/release-changelog-builder-action@v3
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+- name: Create a GitHub release
+    uses: ncipollo/release-action@v1.9.0
+    with:
+      tag: ${{ steps.tag_version.outputs.new_tag }}
+      name: Release ${{ steps.tag_version.outputs.new_tag }}
+      body:
+        ${{ steps.github_release.outputs.changelog }}
+        ${{ steps.tag_version.outputs.changelog }}
+
+- name: Print tag
+  run: echo ${{ steps.tag_version.outputs.new_tag }} ${{ steps.tag_version.outputs }} ${{ steps.tag_version }}
