@@ -48,6 +48,7 @@ jobs:
 
       - name: Semantic Versioning
         id: versioning
+        if: ${{ github.event_name != 'pull_request' }}
         uses: paulhatch/semantic-version@v4.0.2
         with:
           tag_prefix: "v"
@@ -57,6 +58,7 @@ jobs:
           bump_each_commit: true
 
       - name: Upload Jar Artifact
+        if: ${{ github.event_name != 'pull_request' }}
         uses: actions/upload-artifact@v3
         with:
           name: build-${{ steps.versioning.outputs.version }}.jar
@@ -92,10 +94,12 @@ jobs:
 #        uses: ishworkh/docker-image-artifact-upload@v1
 #        with:
 #          image: "test:${{ steps.versioning.outputs.version }}"
+      - name: Print github ref
+        run: ${{ github.ref }}
 
       - name: Create a Github release
         id: release
-        if: github.ref == 'refs/heads/main' && github.event_name == 'pull_request'
+        if: ${{ github.ref }} == 'refs/heads/main' && ${{ github.event_name }} == 'push'
         uses: rymndhng/release-on-push-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
