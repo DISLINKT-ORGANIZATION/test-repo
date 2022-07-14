@@ -46,23 +46,26 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      - name: Semantic Versioning
-        id: versioning
-        if: ${{ github.event_name != 'pull_request' }}
-        uses: paulhatch/semantic-version@v4.0.2
-        with:
-          tag_prefix: "v"
-          major_pattern: "(MAJOR)"
-          minor_pattern: "(MINOR)"
-          format: "${major}.${minor}.${patch}"
-          bump_each_commit: true
+      - name: Print github ref
+        run: echo  githubRef - ${{ github.ref }} githubEventName - ${{ github.event_name }}
 
-      - name: Upload Jar Artifact
-        if: ${{ github.event_name != 'pull_request' }}
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-${{ steps.versioning.outputs.version }}.jar
-          path: target/*.jar
+#      - name: Semantic Versioning
+#        id: versioning
+#        if: ${{ github.event_name != 'pull_request' }}
+#        uses: paulhatch/semantic-version@v4.0.2
+#        with:
+#          tag_prefix: "v"
+#          major_pattern: "(MAJOR)"
+#          minor_pattern: "(MINOR)"
+#          format: "${major}.${minor}.${patch}"
+#          bump_each_commit: true
+#
+#      - name: Upload Jar Artifact
+#        if: ${{ github.event_name != 'pull_request' }}
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: build-${{ steps.versioning.outputs.version }}.jar
+#          path: target/*.jar
 
 
 #      - name: Set Up QEMU
@@ -94,19 +97,18 @@ jobs:
 #        uses: ishworkh/docker-image-artifact-upload@v1
 #        with:
 #          image: "test:${{ steps.versioning.outputs.version }}"
-      - name: Print github ref
-        run: ${{ github.ref }}
 
-      - name: Create a Github release
-        id: release
-        if: ${{ github.ref }} == 'refs/heads/main' && ${{ github.event_name }} == 'push'
-        uses: rymndhng/release-on-push-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          bump_version_scheme: minor
-          tag_prefix: v
-          release_name: "Release <RELEASE_VERSION>"
+
+#      - name: Create a Github release
+#        id: release
+#        if: ${{ github.ref }} == 'refs/heads/main' && ${{ github.event_name }} == 'push'
+#        uses: rymndhng/release-on-push-action@master
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          bump_version_scheme: minor
+#          tag_prefix: v
+#          release_name: "Release <RELEASE_VERSION>"
 
 
 
