@@ -91,11 +91,11 @@ jobs:
 #          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/test:buildcache
 #          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/test:buildcache,mode=max
 
-#      - name: Upload Docker Image As Artifact
-#        if: ${{ github.event_name == 'push' }}
-#        uses: ishworkh/docker-image-artifact-upload@v1
-#        with:
-#          image: "test:${{ steps.versioning.outputs.version }}"
+      - name: Upload Docker Image As Artifact
+        if: ${{ github.event_name == 'push' }}
+        uses: ishworkh/docker-image-artifact-upload@v1
+        with:
+          image: "test:${{ steps.versioning.outputs.version }}"
 
 
 
