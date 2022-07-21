@@ -82,6 +82,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build And Push Docker Image
+        id: docker_build
         if: ${{ github.event_name == 'push' }}
         uses: docker/build-push-action@v2
         with:
@@ -95,7 +96,8 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         uses: ishworkh/docker-image-artifact-upload@v1
         with:
-          image: "${{ secrets.DOCKER_USERNAME }}/test:${{ steps.versioning.outputs.version }}"
+#          image: "${{ secrets.DOCKER_USERNAME }}/test:${{ steps.versioning.outputs.version }}"
+          image: ${{ steps.docker_build.outputs.imageid }}
 
 
 
