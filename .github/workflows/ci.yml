@@ -95,7 +95,7 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         uses: ishworkh/docker-image-artifact-upload@v1
         with:
-          image: "test:${{ steps.versioning.outputs.version }}"
+          image: "${{ secrets.DOCKER_USERNAME }}/test:${{ steps.versioning.outputs.version }}"
 
 
 
