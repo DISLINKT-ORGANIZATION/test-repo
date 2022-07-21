@@ -59,6 +59,9 @@ jobs:
           format: "${major}.${minor}.${patch}"
           bump_each_commit: true
 
+      - name: Print current version
+        run: echo {{ steps.versioning.outputs.version }}
+
       - name: Upload Jar Artifact
         if: ${{ github.event_name == 'push' }}
         uses: actions/upload-artifact@v3
