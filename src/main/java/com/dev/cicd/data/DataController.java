@@ -17,11 +17,12 @@ public class DataController {
 
     @GetMapping("/version")
     public String version() {
-        return "The actual version is 1.0.0";
+        return "The actual version is 4.0.0";
     }
 
     @GetMapping("/nations")
     public JsonNode getRandomNations() {
+        System.out.println("Test");
         var objectMapper = new ObjectMapper();
         var faker = new Faker(new Locale("en-US"));
         var nations = objectMapper.createArrayNode();
