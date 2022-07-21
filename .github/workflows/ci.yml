@@ -89,6 +89,7 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/test:${{ steps.versioning.outputs.version }}
+          load: true
 #          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/test:buildcache
 #          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/test:buildcache,mode=max
 
@@ -96,8 +97,7 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         uses: ishworkh/docker-image-artifact-upload@v1
         with:
-#          image: "${{ secrets.DOCKER_USERNAME }}/test:${{ steps.versioning.outputs.version }}"
-          image: ${{ steps.docker_build.outputs.imageid }}
+          image: "${{ secrets.DOCKER_USERNAME }}/test:${{ steps.versioning.outputs.version }}"
 
 
 
