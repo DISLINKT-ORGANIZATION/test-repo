@@ -22,3 +22,12 @@ jobs:
       - name: develop
         if: ${{ env.DEVELOP_BRANCH == env.PR_BRANCH }}
         run: echo "ok"
+
+
+#      - name: Print github ref
+#        run: echo  goalBranch - ${{github.event.pull_request.head.ref}} githubEventName - ${{ github.event_name }}
+#
+#      - name: Dump GitHub context
+#        env:
+#          GITHUB_CONTEXT: ${{ toJSON(github) }}
+#        run: echo ${{ env.GITHUB_CONTEXT }}
