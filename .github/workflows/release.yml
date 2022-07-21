@@ -16,4 +16,3 @@ jobs:
           bump_version_scheme: minor
           tag_prefix: v
           release_name: "Release <RELEASE_VERSION>"
-
