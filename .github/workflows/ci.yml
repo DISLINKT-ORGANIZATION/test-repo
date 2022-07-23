@@ -10,11 +10,16 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
+#      - name: Checkout Repo
+#        uses: actions/checkout@v1
+#        with:
+#          ref: develop
+#          fetch-depth: '0'
       - name: Checkout Repo
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
         with:
-          ref: HEAD^
-          fetch-depth: '0'
+          fetch-depth: 0
+        run: git checkout HEAD^
 
       - name: Setup Java
         uses: actions/setup-java@v1
