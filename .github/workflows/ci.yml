@@ -111,15 +111,25 @@ jobs:
 #        with:
 #          image: "${{ secrets.DOCKER_USERNAME }}/test:${{ steps.versioning.outputs.version }}"
 
-      - name: Build and push
+      - name: Docker build
         id: docker_build
+        if: ${{ github.event_name == 'push' }}
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: false
+          builder: ${{ steps.buildx.outputs.name }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/test:${{ steps.versioning.outputs.version }}
+          load: true
+
+      - name: Docker push
+        id: docker_push
+        if: ${{ github.event_name == 'push' }}
         uses: docker/build-push-action@v2
         with:
           context: .
           push: true
-          builder: ${{ steps.buildx.outputs.name }}
           tags: ${{ secrets.DOCKER_USERNAME }}/test:${{ steps.versioning.outputs.version }}
-          load: true
 
       - name: Upload image
         uses: ishworkh/docker-image-artifact-upload@v1
