@@ -116,7 +116,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          push: false
+          push: true
           builder: ${{ steps.buildx.outputs.name }}
           tags: ${{ secrets.DOCKER_USERNAME }}/test:${{ steps.versioning.outputs.version }}
           load: true
