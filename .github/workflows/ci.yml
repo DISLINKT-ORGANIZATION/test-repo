@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v1
         with:
-          ref: develop
+          ref: HEAD^
           fetch-depth: '0'
 
       - name: Setup Java
@@ -28,8 +28,8 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-#      - name: Run Unit Tests
-#        run: mvn -B test
+      - name: Run Unit Tests
+        run: mvn -B test
 
       # TODO: run integration tests with docker-compose
 
