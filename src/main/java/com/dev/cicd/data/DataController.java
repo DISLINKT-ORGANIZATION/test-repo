@@ -49,6 +49,5 @@ public class DataController {
                     .put("code", currency.code()));
         }
         return currencies;
-
     }
 }
